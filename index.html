@@ -211,7 +211,7 @@ function qr(){const q=$('#quiz');if(qi>=Q.length){const best=Math.max(L('best',0
 const x=Q[qi];q.innerHTML=`<p><b>${bn(qi+1)}. ${x[0]}</b></p>`+x[1].map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('');
 q.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const ok=+b.dataset.i===x[2];if(ok)qs++;b.classList.add(ok?'ok':'no');q.querySelectorAll('.opt').forEach(o=>{o.disabled=true;if(+o.dataset.i===x[2])o.classList.add('ok')});setTimeout(()=>{qi++;qr()},900)})}
 renderAll();qib();qr();times();
-if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{}));
 </script>
 <script src="quiz.js"></script>
 <script src="quran.js"></script>
