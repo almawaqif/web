@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0F4D3F">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="https://i.ibb.co.com/XrCP3wVn/file-0000000058dc8207863a8268fbf8e78e.png">
+<link rel="apple-touch-icon" href="https://i.ibb.co.com/XrCP3wVn/file-0000000058dc8207863a8268fbf8e78e.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Al Mawaqif">
@@ -19,7 +19,7 @@
 :root[data-theme="dark"]{--bg:#0D1A17;--card:#152724;--ink:#E6F0EC;--mute:#97ACA5;--green:#5FC1A5;--gold:#E0B74A;--line:#254039;--ar:#F1E6C2}
 *{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hind Siliguri",system-ui,sans-serif;line-height:1.7;padding-bottom:90px}
-header{background:var(--green);color:#fff;padding:18px 16px 14px}header h1{margin:0;font-size:26px}header p{margin:2px 0 8px;opacity:.85;font-size:14px}
+header{background:#0F4D3F;color:#fff;padding:18px 16px 14px}header h1{margin:0;font-size:26px}header p{margin:2px 0 8px;opacity:.85;font-size:14px}
 #q{width:100%;padding:9px 12px;border-radius:10px;border:0;font:inherit}
 .tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 16px 0;color:var(--mute);font-size:14px}
 button{font:inherit;cursor:pointer}.tools button,.chips button,.opt{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:5px 12px}
@@ -46,7 +46,7 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline
 </style>
 </head>
 <body>
-<header><img src="logo.svg" alt="Al Mawaqif المواقف" style="height:46px;display:block;margin-bottom:4px"><h1 style="font-size:20px">নামাজ শিক্ষা</h1><p>ধাপে ধাপে নামাজ, ওযু, সূরা ও দোয়া</p><input id="q" type="search" placeholder="সূরা, দোয়া বা নিয়ম খুঁজুন…" aria-label="সার্চ"></header>
+<header><img src="https://i.ibb.co.com/XrCP3wVn/file-0000000058dc8207863a8268fbf8e78e.png" alt="Al Mawaqif المواقف" style="height:72px;width:auto;max-width:100%;display:block;margin-bottom:6px;border-radius:14px;background:#fbf6e9"><h1 style="font-size:20px">নামাজ শিক্ষা</h1><p>ধাপে ধাপে নামাজ, ওযু, সূরা ও দোয়া</p><input id="q" type="search" placeholder="সূরা, দোয়া বা নিয়ম খুঁজুন…" aria-label="সার্চ"></header>
 <div class="tools"><span>আরবি লেখা:</span><button id="minus" aria-label="ছোট করুন">A−</button><button id="plus" aria-label="বড় করুন">A+</button><button id="theme">থিম: অটো</button><button id="login">লগইন (সিঙ্ক)</button></div>
 <main>
 
@@ -175,7 +175,10 @@ $('#prog').innerHTML=`মুখস্থ সূরা: ${bn(m)} / ${bn(S2.length
 $('#last').innerHTML=lr?`শেষ পড়া: <button class="tools" style="padding:2px 10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px" data-go="${lr.k}">${lr.n}</button>`:''}
 // ---- নামাজের সময়, হিজরি তারিখ ----
 let T=null;
-try{$('#hijri').textContent=new Intl.DateTimeFormat('bn-BD-u-ca-islamic-umalqura',{dateStyle:'full'}).format(new Date())}catch(e){}
+const HM=['মুহাররম','সফর','রবিউল আউয়াল','রবিউস সানি','জমাদিউল আউয়াল','জমাদিউস সানি','রজব','শা\u2019বান','রমজান','শাওয়াল','জিলকদ','জিলহজ'];let hoff=L('hoff',0);
+function hijri(){try{const d=new Date(Date.now()+hoff*864e5),p=Object.fromEntries(new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura',{day:'numeric',month:'numeric',year:'numeric'}).formatToParts(d).map(x=>[x.type,x.value])),n=new Date();
+$('#hijri').innerHTML=new Intl.DateTimeFormat('bn-BD',{weekday:'long'}).format(n)+', '+bn(p.day)+' '+HM[p.month-1]+' '+bn(p.year)+' হিজরি<br><small>'+new Intl.DateTimeFormat('bn-BD',{day:'numeric',month:'long',year:'numeric'}).format(n)+' · চাঁদ দেখা অনুযায়ী মিলিয়ে নিন: </small><button id="hm" aria-label="১ দিন কমান">−১</button> <button id="hp" aria-label="১ দিন বাড়ান">+১</button>';
+$('#hm').onclick=()=>{hoff--;W('hoff',hoff);hijri()};$('#hp').onclick=()=>{hoff++;W('hoff',hoff);hijri()}}catch(e){}}hijri();
 async function times(){T=L('t_'+day,null);if(!T){try{const r=await fetch(`https://api.aladhan.com/v1/timings?latitude=${pos.la}&longitude=${pos.lo}&method=1&school=1`);T=(await r.json()).data.timings;W('t_'+day,T)}catch(e){$('#next').textContent='সময় আনা যায়নি (ইন্টারনেট দেখুন)'}}
 if(T)$('#ttab').innerHTML=PN.map(p=>{let[h,m]=T[p[0]].split(':');h=+h;return`<tr><td>${p[1]}</td><td>${bn((h%12)||12)}:${bn(m)} ${h<12?'পূর্বাহ্ন':'অপরাহ্ন'}</td></tr>`}).join('');tick()}
 function tick(){if(!T)return;const n=new Date();let x=null;for(const[k,b]of PN){const[h,m]=T[k].split(':'),d=new Date(n);d.setHours(h,m,0,0);if(d>n){x=[b,d];break}}
@@ -185,9 +188,15 @@ setInterval(tick,1000);
 $('#loc').onclick=()=>navigator.geolocation&&navigator.geolocation.getCurrentPosition(p=>{pos={la:p.coords.latitude,lo:p.coords.longitude};W('pos',pos);localStorage.removeItem('t_'+day);times();qib()},()=>alert('অবস্থান পাওয়া যায়নি'));
 // ---- কিবলা ----
 const qb=()=>{const r=Math.PI/180,a=pos.la*r,b=21.4225*r,d=(39.8262-pos.lo)*r;return(Math.atan2(Math.sin(d),Math.cos(a)*Math.tan(b)-Math.sin(a)*Math.cos(d))/r+360)%360};
-let hd=null;function qib(){const q=qb();$('#qtxt').textContent=`কিবলা উত্তর থেকে ${bn(Math.round(q))}° ডানে`+(hd==null?' (অবস্থান ব্যবহার করুন ও কম্পাস চালু করুন)':'');$('#arrow').style.transform=`rotate(${hd==null?q:q-hd}deg)`}
-$('#comp').onclick=async()=>{try{if(window.DeviceOrientationEvent&&DeviceOrientationEvent.requestPermission&&await DeviceOrientationEvent.requestPermission()!=='granted')return}catch(e){}
-const f=e=>{hd=e.webkitCompassHeading!=null?e.webkitCompassHeading:(e.alpha!=null?(360-e.alpha)%360:null);qib()};addEventListener('deviceorientationabsolute',f);addEventListener('deviceorientation',f)};
+let hd=null;
+function qib(){const q=qb();let d=((q-(hd==null?q:hd))%360+360)%360;const diff=Math.min(d,360-d);$('#arrow').style.transform='rotate('+d+'deg)';$('#arrow').style.color=hd!=null&&diff<6?'#2e9d6b':'';
+$('#qtxt').textContent=hd==null?'কিবলা উত্তর থেকে '+bn(Math.round(q))+'° ডানে। নিচের বোতাম চেপে কম্পাস চালু করুন (ফোন সমতলে ধরুন)।':(diff<6?'আপনি কিবলামুখী ✔':'ফোন ঘুরান। আপনার দিক '+bn(Math.round(hd))+'°, কিবলা '+bn(Math.round(q))+'°')}
+function heading(e){if(e.webkitCompassHeading!=null)return e.webkitCompassHeading;if(e.alpha==null)return null;const r=Math.PI/180,a=e.alpha*r,b=(e.beta||0)*r,g=(e.gamma||0)*r,cA=Math.cos(a),sA=Math.sin(a),sB=Math.sin(b),cB=Math.cos(b),sG=Math.sin(g),cG=Math.cos(g);
+return(Math.atan2(-cA*sG-sA*sB*cG,-sA*sG+cA*sB*cG)/r+360)%360}
+$('#comp').onclick=async()=>{$('#loc').click();
+try{if(window.DeviceOrientationEvent&&DeviceOrientationEvent.requestPermission&&await DeviceOrientationEvent.requestPermission()!=='granted')return}catch(e){}
+const f=e=>{const h=heading(e);if(h==null)return;if(hd==null)hd=h;else{const d=((h-hd+540)%360)-180;hd=(hd+d*.3+360)%360}qib()};
+addEventListener('ondeviceorientationabsolute' in window?'deviceorientationabsolute':'deviceorientation',f,true)};
 // ---- তাসবীহ ----
 const Z=[['سُبْحَانَ اللَّهِ','সুবহানাল্লাহ',33],['الْحَمْدُ لِلَّهِ','আলহামদুলিল্লাহ',33],['اللَّهُ أَكْبَرُ','আল্লাহু আকবার',34]];
 function zr(){const z=Z[tz.zi];$('#tz').textContent=z[0];$('#tzp').textContent=z[1];$('#tap').textContent=bn(tz.zc);$('#tgoal').textContent=tz.zc>=z[2]?'লক্ষ্য পূর্ণ হয়েছে ('+bn(z[2])+')':'লক্ষ্য: '+bn(z[2])+' বার';$('#ttot').textContent='মোট গণনা: '+bn(tz.tot||0)}
