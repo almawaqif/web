@@ -9,7 +9,7 @@ document.getElementById('home').insertAdjacentHTML('beforeend',
 <p class="m">অ্যাপ বা ব্রাউজার চালু থাকলে (ব্যাকগ্রাউন্ডে থাকলেও) কাজ করে; পুরোপুরি বন্ধ থাকলে আসবে না। iPhone-এ আগে "হোম স্ক্রিনে যোগ করুন"।</p></div></details>`);
 const cb=document.getElementById('rem'),msg=document.getElementById('remt');
 const ok=()=>'Notification' in window;
-function note(t,b){const o={body:b,icon:'icon-192.png',tag:t};
+function note(t,b){const o={body:b,icon:'https://i.ibb.co.com/XrCP3wVn/file-0000000058dc8207863a8268fbf8e78e.png',tag:t};
  if(navigator.serviceWorker&&navigator.serviceWorker.ready)navigator.serviceWorker.ready.then(r=>r.showNotification(t,o)).catch(()=>{try{new Notification(t,o)}catch(e){}});
  else try{new Notification(t,o)}catch(e){}}
 async function ask(){if(!ok()){msg.textContent='এই ব্রাউজারে নোটিফিকেশন সমর্থিত নয়।';return false}
