@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0F4D3F">
 <link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Al Mawaqif">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>নামাজ শিক্ষা</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap">
 <style>
@@ -40,7 +46,7 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline
 </style>
 </head>
 <body>
-<header><h1>নামাজ শিক্ষা</h1><p>ধাপে ধাপে নামাজ, ওযু, সূরা ও দোয়া</p><input id="q" type="search" placeholder="সূরা, দোয়া বা নিয়ম খুঁজুন…" aria-label="সার্চ"></header>
+<header><img src="logo.svg" alt="Al Mawaqif المواقف" style="height:46px;display:block;margin-bottom:4px"><h1 style="font-size:20px">নামাজ শিক্ষা</h1><p>ধাপে ধাপে নামাজ, ওযু, সূরা ও দোয়া</p><input id="q" type="search" placeholder="সূরা, দোয়া বা নিয়ম খুঁজুন…" aria-label="সার্চ"></header>
 <div class="tools"><span>আরবি লেখা:</span><button id="minus" aria-label="ছোট করুন">A−</button><button id="plus" aria-label="বড় করুন">A+</button><button id="theme">থিম: অটো</button><button id="login">লগইন (সিঙ্ক)</button></div>
 <main>
 
@@ -116,6 +122,7 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline
 <script src="knowledge.js"></script>
 <script src="steps.js"></script>
 <script src="reminder.js"></script>
+<script src="install.js"></script>
 <script>
 const firebaseConfig={apiKey:"AIzaSyBI4GN_MeKm3fwVUeiouO0Opib-5w3-iio",authDomain:"gaivexofficial.firebaseapp.com",projectId:"gaivexofficial",storageBucket:"gaivexofficial.firebasestorage.app",messagingSenderId:"908554622906",appId:"1:908554622906:web:93df8fa45f7d29afbfef83",measurementId:"G-2766CQ56K9"};
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
