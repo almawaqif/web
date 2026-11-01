@@ -175,17 +175,20 @@ $('#prog').innerHTML=`মুখস্থ সূরা: ${bn(m)} / ${bn(S2.length
 $('#last').innerHTML=lr?`শেষ পড়া: <button class="tools" style="padding:2px 10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px" data-go="${lr.k}">${lr.n}</button>`:''}
 // ---- নামাজের সময়, হিজরি তারিখ ----
 let T=null;
-const HM=['মুহাররম','সফর','রবিউল আউয়াল','রবিউস সানি','জমাদিউল আউয়াল','জমাদিউস সানি','রজব','শা\u2019বান','রমজান','শাওয়াল','জিলকদ','জিলহজ'];let hoff=L('hoff',0);
-function hijri(){try{const d=new Date(Date.now()+hoff*864e5),p=Object.fromEntries(new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura',{day:'numeric',month:'numeric',year:'numeric'}).formatToParts(d).map(x=>[x.type,x.value])),n=new Date();
-$('#hijri').innerHTML=new Intl.DateTimeFormat('bn-BD',{weekday:'long'}).format(n)+', '+bn(p.day)+' '+HM[p.month-1]+' '+bn(p.year)+' হিজরি<br><small>'+new Intl.DateTimeFormat('bn-BD',{day:'numeric',month:'long',year:'numeric'}).format(n)+' · চাঁদ দেখা অনুযায়ী মিলিয়ে নিন: </small><button id="hm" aria-label="১ দিন কমান">−১</button> <button id="hp" aria-label="১ দিন বাড়ান">+১</button>';
-$('#hm').onclick=()=>{hoff--;W('hoff',hoff);hijri()};$('#hp').onclick=()=>{hoff++;W('hoff',hoff);hijri()}}catch(e){}}hijri();
-async function times(){T=L('t_'+day,null);if(!T){try{const r=await fetch(`https://api.aladhan.com/v1/timings?latitude=${pos.la}&longitude=${pos.lo}&method=1&school=1`);T=(await r.json()).data.timings;W('t_'+day,T)}catch(e){$('#next').textContent='সময় আনা যায়নি (ইন্টারনেট দেখুন)'}}
-if(T)$('#ttab').innerHTML=PN.map(p=>{let[h,m]=T[p[0]].split(':');h=+h;return`<tr><td>${p[1]}</td><td>${bn((h%12)||12)}:${bn(m)} ${h<12?'পূর্বাহ্ন':'অপরাহ্ন'}</td></tr>`}).join('');tick()}
+const HM=['মুহাররম','সফর','রবিউল আউয়াল','রবিউস সানি','জমাদিউল আউয়াল','জমাদিউস সানি','রজব','শা\u2019বান','রমজান','শাওয়াল','জিলকদ','জিলহজ'];
+let hoff=0,HD=L('hd_'+day,null);
+const HF=new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura',{day:'numeric',month:'numeric',year:'numeric'}),hjp=t=>Object.fromEntries(HF.formatToParts(new Date(t)).map(x=>[x.type,+x.value]));
+function hijri(){try{const n=new Date();let d,m,y,src='';
+ if(HD){d=+HD.day;m=+HD.month.number;y=+HD.year;src=' · অনলাইন থেকে';for(const o of[0,-1,1,-2,2]){const p=hjp(Date.now()+o*864e5);if(p.day===d&&p.month===m){hoff=o;break}}}
+ else{const p=hjp(Date.now());d=p.day;m=p.month;y=p.year}
+ $('#hijri').innerHTML=new Intl.DateTimeFormat('bn-BD',{weekday:'long'}).format(n)+', '+bn(d)+' '+HM[m-1]+' '+bn(y)+' হিজরি<br><small>'+new Intl.DateTimeFormat('bn-BD',{day:'numeric',month:'long',year:'numeric'}).format(n)+src+'</small>'}catch(e){}}hijri();
+async function times(){T=L('t_'+day,null);if(!T||!HD){try{const r=await fetch(`https://api.aladhan.com/v1/timings?latitude=${pos.la}&longitude=${pos.lo}&method=1&school=1`),j=(await r.json()).data;T=j.timings;HD=j.date.hijri;W('t_'+day,T);W('hd_'+day,HD)}catch(e){if(!T)$('#next').textContent='সময় আনা যায়নি (ইন্টারনেট দেখুন)'}}
+if(T)$('#ttab').innerHTML=PN.map(p=>{let[h,m]=T[p[0]].split(':');h=+h;return`<tr><td>${p[1]}</td><td>${bn((h%12)||12)}:${bn(m)} ${h<12?'পূর্বাহ্ণ':'অপরাহ্ণ'}</td></tr>`}).join('');hijri();tick()}
 function tick(){if(!T)return;const n=new Date();let x=null;for(const[k,b]of PN){const[h,m]=T[k].split(':'),d=new Date(n);d.setHours(h,m,0,0);if(d>n){x=[b,d];break}}
 if(!x){const[h,m]=T.Fajr.split(':'),d=new Date(n);d.setDate(d.getDate()+1);d.setHours(h,m,0,0);x=['ফজর',d]}
 const s=Math.floor((x[1]-n)/1e3);$('#next').textContent=`${x[0]} শুরু হতে ${bn(Math.floor(s/3600))} ঘণ্টা ${bn(Math.floor(s%3600/60))} মিনিট ${bn(s%60)} সেকেন্ড`}
 setInterval(tick,1000);
-$('#loc').onclick=()=>navigator.geolocation&&navigator.geolocation.getCurrentPosition(p=>{pos={la:p.coords.latitude,lo:p.coords.longitude};W('pos',pos);localStorage.removeItem('t_'+day);times();qib()},()=>alert('অবস্থান পাওয়া যায়নি'));
+$('#loc').onclick=()=>navigator.geolocation&&navigator.geolocation.getCurrentPosition(p=>{pos={la:p.coords.latitude,lo:p.coords.longitude};W('pos',pos);localStorage.removeItem('t_'+day);localStorage.removeItem('hd_'+day);HD=null;times();qib()},()=>alert('অবস্থান পাওয়া যায়নি'));
 // ---- কিবলা ----
 const qb=()=>{const r=Math.PI/180,a=pos.la*r,b=21.4225*r,d=(39.8262-pos.lo)*r;return(Math.atan2(Math.sin(d),Math.cos(a)*Math.tan(b)-Math.sin(a)*Math.cos(d))/r+360)%360};
 let hd=null;
@@ -213,6 +216,8 @@ q.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const ok=+b.dataset.i===x[2
 renderAll();qib();qr();times();
 if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{}));
 </script>
+<script src="progress.js"></script>
+<script src="ramadan.js"></script>
 <script src="quiz.js"></script>
 <script src="quran.js"></script>
 </body>
