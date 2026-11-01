@@ -8,16 +8,27 @@ const nb=document.querySelector('nav [data-t="ozu"]');if(nb)nb.remove();
 // ---- হাদিস ----
 const CDN='https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/',H=document.getElementById('hadith');
 const COL=[['bukhari','সহীহ বুখারী','ইমাম বুখারী রহ.',97],['muslim','সহীহ মুসলিম','ইমাম মুসলিম রহ.',57],['tirmidhi','জামে তিরমিযী','ইমাম তিরমিযী রহ.',49],['abudawud','সুনানে আবু দাউদ','ইমাম আবু দাউদ রহ.',43],['nasai','সুনানে নাসাঈ','ইমাম নাসাঈ রহ.',52],['ibnmajah','সুনানে ইবনে মাজাহ','ইমাম ইবনে মাজাহ রহ.',37]];
-const HISN='https://old.islamhouse.com/40079/en/bn/books/(Hisn_Almuslim)_Fortress_of_the_Muslim,_Invocations_from_the_Quran_and_Sunnah';
+const HISN='https://risala.prh.gov.sa/bn/contents/44',HISNPDF='https://risala.prh.gov.sa/storage/contents/44/bn_hisn_almuslim.pdf';
 const esc=s=>String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+// ---- অডিও: ফোনের নিজস্ব Text-to-Speech (রেকর্ড করা তিলাওয়াত নয়) ----
+const SS=window.speechSynthesis;
+function stopSay(){if(SS)SS.cancel();if(playing){playing.textContent=playing.dataset.lbl;playing=null}}
+function say(text,lang,btn){if(!SS){alert('এই ব্রাউজারে অডিও পড়া সমর্থিত নয়।');return}
+ const was=playing===btn;stopSay();if(was)return;
+ const vs=SS.getVoices(),pre=lang.slice(0,2),v=vs.find(x=>x.lang.replace('_','-').toLowerCase()===lang.toLowerCase())||vs.find(x=>x.lang.toLowerCase().startsWith(pre));
+ if(vs.length&&!v){alert((pre==='bn'?'বাংলা':pre==='ar'?'আরবি':'এই ভাষার')+' ভয়েস আপনার ফোনে নেই। ফোনের Settings → Text-to-speech output থেকে Google-এর ভয়েস ডাউনলোড করুন।');return}
+ btn.dataset.lbl=btn.textContent;btn.textContent='⏹ থামান';playing=btn;
+ const parts=text.split(/(?<=[।.؟!?])\s+/).reduce((a,x)=>{if(a.length&&(a[a.length-1]+' '+x).length<180)a[a.length-1]+=' '+x;else a.push(x);return a},[]);
+ parts.forEach((x,k)=>{const u=new SpeechSynthesisUtterance(x);u.lang=lang;if(v)u.voice=v;u.rate=.95;if(k===parts.length-1)u.onend=u.onerror=()=>{if(playing===btn)stopSay()};SS.speak(u)})}
 const J=async p=>{for(const u of[CDN+p+'.min.json',CDN+p+'.json']){try{const r=await fetch(u);if(r.ok)return await r.json()}catch(e){}}throw 0};
-let ED=null,INFO=null,cur=null,ed=null,list=[],shown=0,rows=[];
+let ED=null,INFO=null,cur=null,ed=null,list=[],shown=0,rows=[],tx=[],playing=null;
 async function eds(){if(ED)return ED;const j=await J('editions');ED=[];(function w(o){if(Array.isArray(o))o.forEach(w);else if(o&&typeof o==='object'){if(typeof o.name==='string'&&o.language)ED.push(o);else Object.values(o).forEach(w)}})(j);return ED}
 const pick=(k,p)=>ED.find(e=>e.name===p+'-'+k);
 async function names(k){try{INFO=INFO||await J('info');const m=INFO[k]&&INFO[k].metadata,s=m&&(m.sections||m.section);if(s&&typeof s==='object'&&!Array.isArray(s))return s}catch(e){}return null}
 const hdr=(t,back)=>`<div style="display:flex;gap:8px;align-items:center;margin:0 0 10px"><button class="opt" style="width:auto;margin:0" data-back="${back}">← পিছনে</button><b>${t}</b></div>`;
-function home(){H.innerHTML='<p class="note">হাদিসের মূল পাঠ ও অনুবাদ ওপেন হাদিস API থেকে আসে। ইন্টারনেট লাগে; একবার খোলা অংশ ফোনে সেভ থাকে। হাদিসের ব্যাখ্যা বা মাসআলার জন্য আলেমের পরামর্শ নিন।</p>'+COL.map(c=>`<button class="opt" data-col="${c[0]}"><b>${c[1]}</b><br><span class="m">${c[2]}</span></button>`).join('')+`<button class="opt" data-hisn="1"><b>হিসনুল মুসলিম</b><br><span class="m">দোয়া ও যিকিরের সংকলন · বাংলা বই (বাইরের লিংকে খুলবে)</span></button>`}
-async function col(k){cur=COL.find(c=>c[0]===k);H.innerHTML=hdr(cur[1],'home')+'<p class="m">লোড হচ্ছে…</p>';
+function home(){stopSay();H.innerHTML='<p class="note">হাদিসের মূল পাঠ ও অনুবাদ ওপেন হাদিস API থেকে আসে। ইন্টারনেট লাগে; একবার খোলা অংশ ফোনে সেভ থাকে। হাদিসের ব্যাখ্যা বা মাসআলার জন্য আলেমের পরামর্শ নিন।</p>'+COL.map(c=>`<button class="opt" data-col="${c[0]}"><b>${c[1]}</b><br><span class="m">${c[2]}</span></button>`).join('')+`<button class="opt" data-hisn="1"><b>হিসনুল মুসলিম (বাংলা)</b><br><span class="m">দোয়া ও যিকিরের সংকলন · সৌদি সরকারি সংস্থার পাতা (বাইরের লিংকে খুলবে)</span></button><button class="opt" data-hisnpdf="1"><b>হিসনুল মুসলিম PDF</b><br><span class="m">সরাসরি PDF খুলুন বা ডাউনলোড করুন</span></button>`}
+async function col(k){stopSay();cur=COL.find(c=>c[0]===k);H.innerHTML=hdr(cur[1],'home')+'<p class="m">লোড হচ্ছে…</p>';
  try{await eds()}catch(e){H.innerHTML=hdr(cur[1],'home')+'<p class="m">সংস্করণের তালিকা আনা যায়নি। ইন্টারনেট দেখুন।</p>';return}
  const be=pick(k,'ben'),tr=be||pick(k,'eng');if(!tr){H.innerHTML=hdr(cur[1],'home')+'<p class="m">এই গ্রন্থের অনুবাদ পাওয়া যায়নি।</p>';return}
  const ar=pick(k,'ara');ed={tr:tr.name,ar:ar&&ar.name,bn:!!be,author:tr.author};
@@ -26,9 +37,10 @@ async function col(k){cur=COL.find(c=>c[0]===k);H.innerHTML=hdr(cur[1],'home')+'
  <div style="display:flex;gap:8px;margin:8px 0"><input id="hn" type="number" min="1" placeholder="হাদিস নম্বর" style="flex:1;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit"><button class="opt" style="width:auto;margin:0" data-num="1">খুঁজুন</button></div><div id="hr"></div>
  <p class="m"><b>কিতাব (অধ্যায়):</b></p>`+L.map(([n,t])=>`<button class="opt" data-sec="${n}">কিতাব ${bn(n)}${t?' · '+esc(t):''}</button>`).join('')}
 function card(t,a){const g=t.grades&&t.grades[0]?' · '+esc(t.grades[0].name+': '+t.grades[0].grade):'';
- const i=rows.push((a?a.text+'\n':'')+t.text+'\n— '+cur[1]+', হাদিস '+t.hadithnumber)-1;
- return`<div class="v"><p class="m">হাদিস নং ${bn(t.hadithnumber)}${g}</p>${a?`<p class="ar">${esc(a.text)}</p>`:''}<p class="me">${esc(t.text)}</p><button class="opt" style="width:auto" data-cp="${i}">কপি</button></div>`}
-async function sec(n){H.innerHTML=hdr(cur[1]+' · কিতাব '+bn(n),'col')+'<p class="m">লোড হচ্ছে…</p>';
+ const i=rows.push((a?a.text+'\n':'')+t.text+'\n— '+cur[1]+', হাদিস '+t.hadithnumber)-1;tx[i]={tr:t.text};
+ const b='class="opt" style="width:auto;display:inline-block;margin:4px 6px 0 0"';
+ return`<div class="v"><p class="m">হাদিস নং ${bn(t.hadithnumber)}${g}</p>${a?`<p class="ar">${esc(a.text)}</p>`:''}<p class="me">${esc(t.text)}</p><div><button ${b} data-tts="tr" data-i="${i}">🔊 ${ed&&ed.bn?'বাংলা':'ইংরেজি'} শুনুন</button><button ${b} data-cp="${i}">কপি</button></div></div>`}
+async function sec(n){stopSay();H.innerHTML=hdr(cur[1]+' · কিতাব '+bn(n),'col')+'<p class="m">লোড হচ্ছে…</p>';
  try{const t=await J(`editions/${ed.tr}/sections/${n}`),a=ed.ar?await J(`editions/${ed.ar}/sections/${n}`).catch(()=>null):null,am={};
   if(a)a.hadiths.forEach(x=>{am[x.arabicnumber||x.hadithnumber]=x});
   list=t.hadiths.map(x=>[x,am[x.arabicnumber||0]||null]);shown=0;
@@ -40,7 +52,7 @@ function nextPage(){const L=document.getElementById('hl');list.slice(shown,shown
 async function num(){const v=+document.getElementById('hn').value,o=document.getElementById('hr');if(!v)return;o.textContent='লোড হচ্ছে…';
  try{const t=(await J(`editions/${ed.tr}/${v}`)).hadiths[0],a=ed.ar?await J(`editions/${ed.ar}/${t.arabicnumber||v}`).then(x=>x.hadiths[0]).catch(()=>null):null;o.innerHTML=card(t,a)}catch(e){o.textContent='এই নম্বরের হাদিস পাওয়া যায়নি।'}}
 H.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;
- if(d.col)col(d.col);else if(d.hisn)window.open(HISN,'_blank');else if(d.back==='home')home();else if(d.back==='col')col(cur[0]);
- else if(d.sec!=null)sec(d.sec);else if(d.more)nextPage();else if(d.num)num();else if(d.cp!=null&&navigator.clipboard)navigator.clipboard.writeText(rows[+d.cp])});
+ if(d.col)col(d.col);else if(d.hisn)window.open(HISN,'_blank');else if(d.hisnpdf)window.open(HISNPDF,'_blank');else if(d.back==='home')home();else if(d.back==='col')col(cur[0]);
+ else if(d.sec!=null)sec(d.sec);else if(d.more)nextPage();else if(d.num)num();else if(d.tts){say(tx[+d.i].tr,ed&&ed.bn?'bn-BD':'en-US',b)}else if(d.cp!=null&&navigator.clipboard)navigator.clipboard.writeText(rows[+d.cp])});
 home();
 })();
