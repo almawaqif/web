@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0F4D3F">
+<meta name="theme-color" content="#0B3D32">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="https://i.ibb.co.com/XrCP3wVn/file-0000000058dc8207863a8268fbf8e78e.png">
 <link rel="apple-touch-icon" href="https://i.ibb.co.com/XrCP3wVn/file-0000000058dc8207863a8268fbf8e78e.png">
@@ -14,56 +14,159 @@
 <title>নামাজ শিক্ষা</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap">
 <style>
-:root{--bg:#EEF4F0;--card:#FFF;--ink:#14231F;--mute:#5B6E68;--green:#0F4D3F;--gold:#B8891B;--line:#D5E2DB;--ar:#0A3A2F;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1A17;--card:#152724;--ink:#E6F0EC;--mute:#97ACA5;--green:#5FC1A5;--gold:#E0B74A;--line:#254039;--ar:#F1E6C2}}
-:root[data-theme="dark"]{--bg:#0D1A17;--card:#152724;--ink:#E6F0EC;--mute:#97ACA5;--green:#5FC1A5;--gold:#E0B74A;--line:#254039;--ar:#F1E6C2}
-*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hind Siliguri",system-ui,sans-serif;line-height:1.7;padding-bottom:90px}
-header{background:#0F4D3F;color:#fff;padding:18px 16px 14px}header h1{margin:0;font-size:26px}header p{margin:2px 0 8px;opacity:.85;font-size:14px}
-#q{width:100%;padding:9px 12px;border-radius:10px;border:0;font:inherit}
-.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 16px 0;color:var(--mute);font-size:14px}
-button{font:inherit;cursor:pointer}.tools button,.chips button,.opt{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:5px 12px}
-main{padding:12px 16px;max-width:680px;margin:0 auto}section{display:none}section.on{display:block}
-details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 10px;overflow:hidden}
-summary{padding:14px 16px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}summary::-webkit-details-marker{display:none}
-summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1}details[open] summary::after{content:"−"}
-.body{padding:0 16px 14px;border-top:1px solid var(--line)}.body p{margin:10px 0}
+:root{--bg:#F1F6F3;--card:#FFFFFF;--ink:#14231F;--mute:#60736C;--green:#0F4D3F;--green2:#17745F;--gold:#B8891B;--line:#DCE8E1;--ar:#0A3A2F;--shadow:0 4px 14px rgba(15,77,63,.08);--soft:#EAF3EE}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1613;--card:#13241F;--ink:#E6F0EC;--mute:#9AB0A8;--green:#5FC1A5;--green2:#2F8F78;--gold:#E0B74A;--line:#22403A;--ar:#F1E6C2;--shadow:0 4px 14px rgba(0,0,0,.35);--soft:#1A302A}}
+:root[data-theme="dark"]{--bg:#0B1613;--card:#13241F;--ink:#E6F0EC;--mute:#9AB0A8;--green:#5FC1A5;--green2:#2F8F78;--gold:#E0B74A;--line:#22403A;--ar:#F1E6C2;--shadow:0 4px 14px rgba(0,0,0,.35);--soft:#1A302A}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hind Siliguri",system-ui,sans-serif;line-height:1.65;padding-bottom:96px}
+button{font:inherit;cursor:pointer;color:inherit}
+
+/* ===== Header ===== */
+header{background:linear-gradient(160deg,#0B3D32 0%,#146B57 100%);color:#fff;padding:calc(14px + env(safe-area-inset-top,0px)) 16px 22px;border-radius:0 0 28px 28px;box-shadow:0 6px 20px rgba(11,61,50,.25)}
+.top{display:flex;align-items:center;gap:12px;max-width:680px;margin:0 auto}
+.top img{height:52px;width:52px;object-fit:cover;border-radius:14px;background:#fbf6e9;flex:none}
+.top .tt{flex:1;min-width:0}.top h1{margin:0;font-size:21px;line-height:1.2}.top p{margin:2px 0 0;font-size:13px;opacity:.85}
+#q{display:block;width:100%;max-width:680px;margin:14px auto 0;padding:12px 16px;border-radius:14px;border:0;font:inherit;background:rgba(255,255,255,.95);color:#14231F;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+#q:focus{outline:3px solid var(--gold)}
+
+/* ===== Toolbar ===== */
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;max-width:680px;margin:14px auto 0;padding:0 16px;color:var(--mute);font-size:13px}
+.tools button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 13px;font-size:13px;box-shadow:var(--shadow)}
+.tools .sp{flex:1}
+
+main{padding:14px 16px;max-width:680px;margin:0 auto}
+section{display:none}section.on{display:block}
+
+/* ===== Page head ===== */
+#pagehead{display:none;align-items:center;gap:10px;margin:0 0 14px}
+#pagehead.on{display:flex}
+#back{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:6px 14px;font-weight:600;color:var(--green);box-shadow:var(--shadow)}
+#ptitle{margin:0;font-size:20px;color:var(--ink)}
+
+/* ===== Hero ===== */
+.hero{background:linear-gradient(150deg,#0F4D3F,#1C8167);color:#fff;border-radius:22px;padding:18px 16px;text-align:center;box-shadow:0 8px 22px rgba(15,77,63,.28);position:relative;overflow:hidden;margin-bottom:16px}
+.hero::after{content:"☪";position:absolute;right:-8px;top:-24px;font-size:120px;opacity:.07}
+.hero .m{color:rgba(255,255,255,.88)}
+#hijri{margin:0 0 8px;font-size:14px}
+#next{font-size:21px;font-weight:700;margin:6px 0 4px;color:#FFE8A3}
+.hero .lbl{font-size:12px;opacity:.8;letter-spacing:.3px}
+.times{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:14px}
+.times div{background:rgba(255,255,255,.14);border-radius:12px;padding:8px 2px;font-size:12px}
+.times b{display:block;font-size:13px}
+#ttab{display:none}
+.hero .chips{margin-top:12px}.hero .chips button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:5px 14px;font-size:13px}
+.hero .fn{font-size:11px;opacity:.75;margin:10px 0 0}
+
+/* ===== Topic tiles ===== */
+.gh{display:flex;align-items:center;gap:8px;margin:18px 2px 10px;font-size:16px;font-weight:700;color:var(--ink)}
+.gh::after{content:"";flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:var(--shadow);min-height:118px;position:relative;overflow:hidden;transition:transform .12s}
+.tile:active{transform:scale(.97)}
+.tile .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:var(--c,#0F4D3F);box-shadow:0 4px 10px rgba(0,0,0,.15)}
+.tile b{font-size:16px;line-height:1.25}
+.tile small{color:var(--mute);font-size:12px;line-height:1.3}
+.tile::after{content:"›";position:absolute;right:12px;top:12px;font-size:22px;color:var(--gold);line-height:1}
+.tile.wide{grid-column:1/-1;flex-direction:row;align-items:center;min-height:0;gap:14px}
+.tile.wide>span:last-child{display:flex;flex-direction:column}
+
+/* ===== Cards (details) ===== */
+details{background:var(--card);border:1px solid var(--line);border-radius:18px;margin:0 0 12px;overflow:hidden;box-shadow:var(--shadow)}
+summary{padding:15px 16px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:#fff;background:var(--green2);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:18px;line-height:1;flex:none}
+details[open]>summary{background:var(--soft)}details[open]>summary::after{content:"−"}
+.body{padding:2px 16px 14px;border-top:1px solid var(--line)}.body p{margin:10px 0}
 .ar{font-family:Amiri,"Noto Naskh Arabic",serif;direction:rtl;text-align:right;color:var(--ar);font-size:var(--arsize,28px);line-height:2.1;margin:8px 0}
-.m{color:var(--mute);font-size:15px}.v{padding:6px 0 10px;border-bottom:1px solid var(--line)}.v:last-of-type{border-bottom:0}.pr{margin:0;color:var(--green);font-weight:600;font-size:17px}.me{margin:2px 0 0;font-size:16px}
+.m{color:var(--mute);font-size:15px}
+.v{padding:8px 0 12px;border-bottom:1px dashed var(--line)}.v:last-of-type{border-bottom:0}
+.pr{margin:0;color:var(--green);font-weight:600;font-size:17px}.me{margin:2px 0 0;font-size:16px}
 .hide .ar,.hide .me,.hide .pr{filter:blur(9px)}
-ol.steps{margin:8px 0 0;padding-left:22px}ol.steps li{margin:8px 0}
-.note{background:var(--card);border-left:4px solid var(--gold);padding:10px 14px;border-radius:8px;font-size:14px;color:var(--mute);margin:0 0 12px}
-label.mem{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--mute);margin-top:6px}
-table{width:100%;border-collapse:collapse;margin:8px 0}td,th{padding:8px;border-bottom:1px solid var(--line);text-align:left;font-size:15px}
-nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
-nav button{flex:1;border:0;background:none;color:var(--mute);font-size:13px;padding:8px 0;border-radius:10px}nav button.on{color:var(--green);font-weight:700;background:var(--bg)}
-.tap{display:block;margin:12px auto;width:150px;height:150px;border-radius:50%;border:6px solid var(--gold);background:var(--card);color:var(--green);font:700 44px "Hind Siliguri",sans-serif}
-.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}.opt{display:block;width:100%;text-align:left;margin:6px 0}
-.ok{border-color:var(--green)!important;background:var(--green)!important;color:#fff!important}.no{border-color:#B3261E!important;color:#B3261E!important}.c{text-align:center}
-#next{font-size:20px;font-weight:700;color:var(--green);text-align:center;margin:8px 0}progress{width:100%;height:12px}
-#arrow{display:block;margin:10px auto;font-size:64px;transition:transform .2s}
+ol.steps{margin:10px 0 0;padding:0;list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;margin:10px 0;padding:10px 12px 10px 46px;background:var(--soft);border-radius:12px}
+ol.steps li::before{content:counter(s);position:absolute;left:10px;top:10px;width:26px;height:26px;border-radius:50%;background:var(--green2);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+.note{background:var(--card);border-left:4px solid var(--gold);padding:10px 14px;border-radius:12px;font-size:14px;color:var(--mute);margin:0 0 14px;box-shadow:var(--shadow)}
+label.mem{display:flex;gap:10px;align-items:center;font-size:15px;color:var(--ink);margin:6px 0;padding:10px 12px;background:var(--soft);border-radius:12px}
+label.mem input{width:20px;height:20px;accent-color:var(--green2)}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:10px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+td,th{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:15px}
+th{background:var(--soft);color:var(--green)}tr:last-child td{border-bottom:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.chips button,.opt{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-size:14px}
+.chips button[data-a]{background:var(--soft)}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;border-radius:14px;padding:12px 14px}
+.ok{border-color:var(--green)!important;background:var(--green2)!important;color:#fff!important}.no{border-color:#B3261E!important;color:#B3261E!important}.c{text-align:center}
+.tap{display:block;margin:14px auto;width:160px;height:160px;border-radius:50%;border:6px solid var(--gold);background:radial-gradient(circle,var(--card),var(--soft));color:var(--green);font:700 46px "Hind Siliguri",sans-serif;box-shadow:var(--shadow)}
+.tap:active{transform:scale(.96)}
+progress{width:100%;height:12px;accent-color:var(--green2)}
+#arrow{display:block;margin:10px auto;font-size:68px;transition:transform .2s}
+#last button{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:2px 12px}
+
+/* ===== Bottom nav ===== */
+nav{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));max-width:660px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:22px;display:flex;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:10}
+nav button{flex:1;border:0;background:none;color:var(--mute);font-size:11px;padding:6px 0;border-radius:16px;display:flex;flex-direction:column;align-items:center;gap:0;line-height:1.3}
+nav button i{font-style:normal;font-size:20px}
+nav button.on{color:#fff;font-weight:700;background:var(--green2)}
 button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 </style>
 </head>
 <body>
-<header><img src="https://i.ibb.co.com/XrCP3wVn/file-0000000058dc8207863a8268fbf8e78e.png" alt="Al Mawaqif المواقف" style="height:72px;width:auto;max-width:100%;display:block;margin-bottom:6px;border-radius:14px;background:#fbf6e9"><h1 style="font-size:20px">নামাজ শিক্ষা</h1><p>ধাপে ধাপে নামাজ, ওযু, সূরা ও দোয়া</p><input id="q" type="search" placeholder="সূরা, দোয়া বা নিয়ম খুঁজুন…" aria-label="সার্চ"></header>
-<div class="tools"><span>আরবি লেখা:</span><button id="minus" aria-label="ছোট করুন">A−</button><button id="plus" aria-label="বড় করুন">A+</button><button id="theme">থিম: অটো</button><button id="login">লগইন (সিঙ্ক)</button></div>
+<header>
+ <div class="top"><img src="https://i.ibb.co.com/XrCP3wVn/file-0000000058dc8207863a8268fbf8e78e.png" alt="Al Mawaqif"><div class="tt"><h1>নামাজ শিক্ষা</h1><p>ধাপে ধাপে নামাজ, ওযু, সূরা ও দোয়া</p></div></div>
+ <input id="q" type="search" placeholder="🔍 সূরা, দোয়া বা নিয়ম খুঁজুন…" aria-label="সার্চ">
+</header>
+<div class="tools"><span>আরবি:</span><button id="minus" aria-label="ছোট করুন">A−</button><button id="plus" aria-label="বড় করুন">A+</button><span class="sp"></span><button id="theme">থিম: অটো</button><button id="login">লগইন (সিঙ্ক)</button></div>
+
 <main>
+<div id="pagehead"><button id="back">← হোম</button><h2 id="ptitle"></h2></div>
 
 <section id="home" class="on">
-<details open><summary>আজকের নামাজ</summary><div class="body">
-<p class="m c" id="hijri"></p><div id="next">লোড হচ্ছে…</div>
-<table id="ttab"></table><div class="chips"><button id="loc">আমার অবস্থান ব্যবহার করুন</button></div>
-<p class="m">হানাফী (আসর) হিসাব, করাচি পদ্ধতি। সময় অনলাইন থেকে আসে।</p></div></details>
-<details open><summary>আজকের নামাজ ট্র্যাকার</summary><div class="body"><div id="ptr"></div></div></details>
-<details open><summary>আমার অগ্রগতি</summary><div class="body"><p id="prog"></p><p id="last"></p></div></details>
-<details><summary>কিবলা কম্পাস</summary><div class="body c"><span id="arrow">⬆</span><p id="qtxt" class="m"></p><div class="chips"><button id="comp">কম্পাস চালু করুন</button></div></div></details>
+ <div class="hero">
+  <p class="m" id="hijri"></p>
+  <div class="lbl">পরবর্তী নামাজ</div>
+  <div id="next">লোড হচ্ছে…</div>
+  <div class="times" id="times5"></div>
+  <table id="ttab"></table>
+  <div class="chips"><button id="loc">📍 আমার অবস্থান ব্যবহার করুন</button></div>
+  <p class="fn">হানাফী (আসর) হিসাব, করাচি পদ্ধতি। সময় অনলাইন থেকে আসে।</p>
+ </div>
+
+ <div class="gh">📚 শিখুন</div>
+ <div class="grid">
+  <button class="tile" data-tab="namaz" style="--c:#0F7A5F"><span class="ic">🕌</span><b>নামাজ শিক্ষা</b><small>ধাপে ধাপে নিয়ম ও রাকাত</small></button>
+  <button class="tile" data-tab="ozu" style="--c:#1D8FC4"><span class="ic">💧</span><b>ওযু</b><small>ওযুর ধাপ ও ভাঙার কারণ</small></button>
+  <button class="tile" data-tab="surah" style="--c:#B8891B"><span class="ic">📖</span><b>সূরা</b><small>ছোট সূরা, শুনুন ও মুখস্থ</small></button>
+  <button class="tile" data-tab="dua" style="--c:#8E4BB5"><span class="ic">🤲</span><b>দোয়া</b><small>নামাজের দোয়াসমূহ</small></button>
+  <button class="tile" data-tab="hadith" style="--c:#C2562B"><span class="ic">📜</span><b>হাদিস</b><small>হাদিস সংগ্রহ</small></button>
+  <button class="tile" data-tab="more" data-open="d-kalima" style="--c:#2C9E8F"><span class="ic">✨</span><b>কালেমা</b><small>ছয় কালেমা</small></button>
+ </div>
+
+ <div class="gh">🌙 আমল ও টুলস</div>
+ <div class="grid">
+  <button class="tile" data-open="d-tracker" style="--c:#2E9D6B"><span class="ic">✅</span><b>নামাজ ট্র্যাকার</b><small>আজকের নামাজের হিসাব</small></button>
+  <button class="tile" data-tab="more" data-open="d-tasbih" style="--c:#D1873A"><span class="ic">📿</span><b>ডিজিটাল তাসবীহ</b><small>গণনা ও লক্ষ্য</small></button>
+  <button class="tile" data-open="d-kibla" style="--c:#3F6FD1"><span class="ic">🧭</span><b>কিবলা কম্পাস</b><small>কিবলার দিক জানুন</small></button>
+  <button class="tile" data-tab="more" data-open="d-daily" style="--c:#6B5BD1"><span class="ic">🌅</span><b>দৈনন্দিন দোয়া</b><small>প্রতিদিনের দোয়া</small></button>
+ </div>
+
+ <div class="gh">🔎 আরও</div>
+ <div class="grid">
+  <button class="tile" data-tab="more" data-open="d-azan" style="--c:#C2447A"><span class="ic">🔔</span><b>আযান</b><small>শব্দ ও অর্থ</small></button>
+  <button class="tile" data-tab="more" data-open="d-sunnah" style="--c:#0E8E9E"><span class="ic">🕋</span><b>সুন্নত ও নফল</b><small>সহ রাকাতের তালিকা</small></button>
+  <button class="tile" data-tab="more" data-open="d-quiz" style="--c:#E0643A"><span class="ic">🧠</span><b>কুইজ</b><small>নিজেকে যাচাই করুন</small></button>
+  <button class="tile" data-tab="more" data-open="d-bm" style="--c:#D4A017"><span class="ic">⭐</span><b>আমার সংগ্রহ</b><small>বুকমার্ক করা তালিকা</small></button>
+ </div>
+
+ <div class="gh">📊 আজকের অবস্থা</div>
+ <details id="d-tracker" open><summary>আজকের নামাজ ট্র্যাকার</summary><div class="body"><div id="ptr"></div></div></details>
+ <details open><summary>আমার অগ্রগতি</summary><div class="body"><p id="prog"></p><p id="last"></p></div></details>
+ <details id="d-kibla"><summary>কিবলা কম্পাস</summary><div class="body c"><span id="arrow">⬆</span><p id="qtxt" class="m"></p><div class="chips"><button id="comp">কম্পাস চালু করুন</button></div></div></details>
 </section>
 
 <section id="namaz">
 <p class="note">এখানে হানাফী মাযহাব অনুযায়ী নিয়ম দেওয়া আছে। প্রকাশের আগে একজন আলেম দিয়ে যাচাই করিয়ে নিন।</p>
-<details open><summary>পাঁচ ওয়াক্তের ফরজ রাকাত</summary><div class="body"><table><tr><th>ওয়াক্ত</th><th>ফরজ রাকাত</th></tr><tr><td>ফজর</td><td>২</td></tr><tr><td>যোহর</td><td>৪</td></tr><tr><td>আসর</td><td>৪</td></tr><tr><td>মাগরিব</td><td>৩</td></tr><tr><td>এশা</td><td>৪</td></tr></table></div></details>
-<details><summary>প্রথম রাকাত</summary><div class="body"><ol class="steps">
+<details open><summary>🕌 পাঁচ ওয়াক্তের ফরজ রাকাত</summary><div class="body"><table><tr><th>ওয়াক্ত</th><th>ফরজ রাকাত</th></tr><tr><td>ফজর</td><td>২</td></tr><tr><td>যোহর</td><td>৪</td></tr><tr><td>আসর</td><td>৪</td></tr><tr><td>মাগরিব</td><td>৩</td></tr><tr><td>এশা</td><td>৪</td></tr></table></div></details>
+<details><summary>১️⃣ প্রথম রাকাত</summary><div class="body"><ol class="steps">
 <li><b>নিয়ত করুন:</b> কিবলামুখী দাঁড়িয়ে মনে মনে যে ওয়াক্তের নামাজ, তার নিয়ত করুন।</li>
 <li><b>তাকবীরে তাহরীমা:</b> দুই হাত কান পর্যন্ত তুলে "আল্লাহু আকবার" বলুন।</li>
 <li><b>হাত বাঁধুন:</b> ডান হাত বাম হাতের উপর রেখে নাভির নিচে বাঁধুন।</li>
@@ -75,13 +178,13 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline
 <li><b>সিজদা:</b> "আল্লাহু আকবার" বলে সিজদায় গিয়ে তাসবীহ পড়ুন।</li>
 <li><b>জালসা:</b> "আল্লাহু আকবার" বলে সোজা হয়ে বসুন।</li>
 <li><b>দ্বিতীয় সিজদা:</b> আবার "আল্লাহু আকবার" বলে সিজদায় যান।</li></ol></div></details>
-<details><summary>দ্বিতীয় রাকাত ও শেষ বৈঠক</summary><div class="body"><ol class="steps">
+<details><summary>২️⃣ দ্বিতীয় রাকাত ও শেষ বৈঠক</summary><div class="body"><ol class="steps">
 <li>"আল্লাহু আকবার" বলে সোজা দাঁড়ান।</li><li>বিসমিল্লাহ, সূরা ফাতিহা ও আরেকটি সূরা পড়ুন।</li>
 <li>রুকু, কওমা ও দুই সিজদা প্রথম রাকাতের মতোই করুন।</li><li><b>বৈঠক:</b> বসে তাশাহহুদ পড়ুন।</li>
 <li>দুই রাকাতের নামাজ হলে তাশাহহুদের পর <b>দরুদ</b> ও <b>দোয়া</b> পড়ুন।</li>
 <li>চার বা তিন রাকাতের নামাজ হলে প্রথম বৈঠকে শুধু তাশাহহুদ পড়ে উঠে দাঁড়ান।</li>
 <li><b>সালাম:</b> ডানে ও বামে মুখ ফিরিয়ে "আসসালামু আলাইকুম ওয়া রাহমাতুল্লাহ" বলুন।</li></ol></div></details>
-<details><summary>তৃতীয় ও চতুর্থ রাকাত</summary><div class="body"><ol class="steps">
+<details><summary>3️⃣ তৃতীয় ও চতুর্থ রাকাত</summary><div class="body"><ol class="steps">
 <li>প্রথম বৈঠকে তাশাহহুদ পড়ে "আল্লাহু আকবার" বলে সোজা দাঁড়ান।</li>
 <li>ফরজ নামাজে শুধু বিসমিল্লাহ ও সূরা ফাতিহা পড়ুন, অতিরিক্ত সূরা নয়।</li>
 <li>রুকু, কওমা ও দুই সিজদা আগের মতো করুন।</li>
@@ -91,11 +194,11 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline
 </section>
 
 <section id="ozu">
-<details open><summary>ওযুর ধাপ</summary><div class="body"><ol class="steps">
+<details open><summary>💧 ওযুর ধাপ</summary><div class="body"><ol class="steps">
 <li>নিয়ত করে "বিসমিল্লাহ" বলুন।</li><li>দুই হাত কব্জি পর্যন্ত ৩ বার ধুয়ে নিন।</li><li>ডান হাতে পানি নিয়ে ৩ বার কুলি করুন।</li>
 <li>৩ বার নাকে পানি দিয়ে পরিষ্কার করুন।</li><li>পুরো মুখমণ্ডল ৩ বার ধুয়ে নিন।</li><li>ডান ও বাম হাত কনুই সহ ৩ বার করে ধুয়ে নিন।</li>
 <li>ভেজা হাতে পুরো মাথা একবার মাসেহ করুন।</li><li>কান মাসেহ করুন।</li><li>ডান ও বাম পা টাখনু সহ ৩ বার করে ধুয়ে নিন।</li></ol></div></details>
-<details><summary>ওযু ভাঙার কারণ</summary><div class="body"><ol class="steps">
+<details><summary>⚠️ ওযু ভাঙার কারণ</summary><div class="body"><ol class="steps">
 <li>প্রস্রাব বা পায়খানা করলে</li><li>বায়ু বের হলে</li><li>শরীর থেকে রক্ত বা পুঁজ গড়িয়ে পড়লে</li><li>মুখ ভরে বমি হলে</li><li>ঘুমিয়ে পড়লে বা অজ্ঞান হলে</li><li>নামাজের মধ্যে উচ্চস্বরে হাসলে</li></ol></div></details>
 </section>
 
@@ -103,17 +206,17 @@ button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline
 <section id="dua"><div id="duaList"></div></section>
 
 <section id="more">
-<details open><summary>আমার সংগ্রহ (বুকমার্ক)</summary><div class="body"><div id="col" class="chips"></div></div></details>
-<details><summary>ডিজিটাল তাসবীহ</summary><div class="body c"><p class="ar" id="tz" style="text-align:center"></p><p class="pr" id="tzp"></p><button class="tap" id="tap">0</button><p class="m" id="tgoal"></p><p class="m" id="ttot"></p><div class="chips" id="tchips"></div></div></details>
-<details><summary>কালেমা</summary><div class="body" id="kalima"></div></details>
-<details><summary>আযানের শব্দ ও অর্থ</summary><div class="body" id="azan"></div></details>
-<details><summary>দৈনন্দিন দোয়া</summary><div class="body" id="daily"></div></details>
-<details><summary>সুন্নত ও নফল সহ রাকাত (হানাফী)</summary><div class="body"><table><tr><th>ওয়াক্ত</th><th>নামাজের ক্রম</th></tr><tr><td>ফজর</td><td>২ সুন্নত, ২ ফরজ</td></tr><tr><td>যোহর</td><td>৪ সুন্নত, ৪ ফরজ, ২ সুন্নত, ২ নফল</td></tr><tr><td>আসর</td><td>৪ সুন্নত (গায়রে মুয়াক্কাদা), ৪ ফরজ</td></tr><tr><td>মাগরিব</td><td>৩ ফরজ, ২ সুন্নত, ২ নফল</td></tr><tr><td>এশা</td><td>৪ সুন্নত (গায়রে মুয়াক্কাদা), ৪ ফরজ, ২ সুন্নত, ৩ বিতর, ২ নফল</td></tr></table></div></details>
-<details><summary>কুইজ</summary><div class="body" id="quiz"></div></details>
+<details id="d-bm" open><summary>⭐ আমার সংগ্রহ (বুকমার্ক)</summary><div class="body"><div id="col" class="chips"></div></div></details>
+<details id="d-tasbih"><summary>📿 ডিজিটাল তাসবীহ</summary><div class="body c"><p class="ar" id="tz" style="text-align:center"></p><p class="pr" id="tzp"></p><button class="tap" id="tap">0</button><p class="m" id="tgoal"></p><p class="m" id="ttot"></p><div class="chips" id="tchips"></div></div></details>
+<details id="d-kalima"><summary>✨ কালেমা</summary><div class="body" id="kalima"></div></details>
+<details id="d-azan"><summary>🔔 আযানের শব্দ ও অর্থ</summary><div class="body" id="azan"></div></details>
+<details id="d-daily"><summary>🌅 দৈনন্দিন দোয়া</summary><div class="body" id="daily"></div></details>
+<details id="d-sunnah"><summary>🕋 সুন্নত ও নফল সহ রাকাত (হানাফী)</summary><div class="body"><table><tr><th>ওয়াক্ত</th><th>নামাজের ক্রম</th></tr><tr><td>ফজর</td><td>২ সুন্নত, ২ ফরজ</td></tr><tr><td>যোহর</td><td>৪ সুন্নত, ৪ ফরজ, ২ সুন্নত, ২ নফল</td></tr><tr><td>আসর</td><td>৪ সুন্নত (গায়রে মুয়াক্কাদা), ৪ ফরজ</td></tr><tr><td>মাগরিব</td><td>৩ ফরজ, ২ সুন্নত, ২ নফল</td></tr><tr><td>এশা</td><td>৪ সুন্নত (গায়রে মুয়াক্কাদা), ৪ ফরজ, ২ সুন্নত, ৩ বিতর, ২ নফল</td></tr></table></div></details>
+<details id="d-quiz"><summary>🧠 কুইজ</summary><div class="body" id="quiz"></div></details>
 </section>
 <section id="hadith"></section>
 </main>
-<nav><button class="on" data-t="home">হোম</button><button data-t="namaz">নামাজ</button><button data-t="surah">সূরা</button><button data-t="dua">দোয়া</button><button data-t="hadith">হাদিস</button><button data-t="more">আরও</button></nav>
+<nav><button class="on" data-t="home"><i>🏠</i>হোম</button><button data-t="namaz"><i>🕌</i>নামাজ</button><button data-t="surah"><i>📖</i>সূরা</button><button data-t="dua"><i>🤲</i>দোয়া</button><button data-t="hadith"><i>📜</i>হাদিস</button><button data-t="more"><i>☰</i>আরও</button></nav>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -151,17 +254,25 @@ ptr();dash();zr()}
 // ---- ইভেন্ট ----
 let au=null;
 document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const d=b.closest('details');
-if(b.dataset.go){tab(d?null:$(`[data-k="${b.dataset.go}"]`).closest('section').id);const t=$(`[data-k="${b.dataset.go}"]`);t.open=true;t.scrollIntoView()}
+if(b.dataset.tab||b.dataset.open){goTile(b.dataset.tab,b.dataset.open);return}
+if(b.dataset.go){const t=$(`[data-k="${b.dataset.go}"]`);tab(t.closest('section').id);t.open=true;t.scrollIntoView()}
 const a=b.dataset.a;if(!a)return;
 if(a==='bm'){const k=d.dataset.k;bm[k]=!bm[k];b.textContent=bm[k]?'★ বুকমার্ক করা':'☆ বুকমার্ক';save();renderAllLite()}
 if(a==='hide')d.classList.toggle('hide');
 if(a==='copy')navigator.clipboard&&navigator.clipboard.writeText([...d.querySelectorAll('.ar')].map(x=>x.textContent).join('\n'));
 if(a==='play'){if(au){au.pause();au=null;b.textContent='▶ শুনুন';return}let i=0,g=+b.dataset.g,c=+b.dataset.c;const nx=()=>{if(i>=c){au=null;b.textContent='▶ শুনুন';return}au=new Audio(`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${g+i++}.mp3`);au.onended=nx;au.play().catch(()=>{b.textContent='▶ শুনুন';au=null})};b.textContent='⏸ থামান';nx()}});
+function goTile(t,o){
+ if(t)tab(t);
+ if(o){const el=document.getElementById(o);if(el){const sec=el.closest('section');if(sec&&sec.id!==cur)tab(sec.id);el.open=true;setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50)}}}
 function renderAllLite(){$('#col').innerHTML=Object.keys(bm).filter(k=>bm[k]).map(k=>{const e=$(`[data-k="${k}"]`);return e?`<button data-go="${k}">${e.dataset.n}</button>`:''}).join('')||'<span class="m">এখনও কিছু বুকমার্ক করা হয়নি।</span>'}
 document.addEventListener('change',e=>{const t=e.target;if(t.dataset.id){mem[t.dataset.id]=t.checked;save();dash()}if(t.dataset.p){pt[day]=pt[day]||{};pt[day][t.dataset.p]=t.checked;save();dash()}});
 document.addEventListener('toggle',e=>{const d=e.target;if(d.open&&d.dataset&&d.dataset.k){lr={k:d.dataset.k,n:d.dataset.n};save();dash()}},true);
-function tab(id){cur=id;$('#q').value='';$$('nav button,main section,main details').forEach(x=>{x.classList.remove('on');x.hidden=false});$(`nav [data-t="${id}"]`).classList.add('on');$('#'+id).classList.add('on');scrollTo(0,0)}
+const TT={home:'',namaz:'🕌 নামাজ শিক্ষা',ozu:'💧 ওযু',surah:'📖 সূরা',dua:'🤲 দোয়া',hadith:'📜 হাদিস',more:'☰ আরও'};
+function tab(id){cur=id;$('#q').value='';$$('nav button,main section,main details').forEach(x=>{x.classList.remove('on');x.hidden=false});
+ const nb=$(`nav [data-t="${id}"]`);if(nb)nb.classList.add('on');else $('nav [data-t="more"]').classList.add('on');
+ $('#'+id).classList.add('on');$('#pagehead').classList.toggle('on',id!=='home');$('#ptitle').textContent=TT[id]||'';scrollTo(0,0)}
 $$('nav button').forEach(b=>b.onclick=()=>tab(b.dataset.t));
+$('#back').onclick=()=>tab('home');
 $('#q').oninput=e=>{const q=e.target.value.trim().toLowerCase();$$('main section').forEach(s=>s.classList.toggle('on',q?true:s.id===cur));$$('main details').forEach(d=>d.hidden=!!q&&!d.textContent.toLowerCase().includes(q))};
 const setSz=n=>{sz=Math.max(20,Math.min(48,n));document.documentElement.style.setProperty('--arsize',sz+'px');W('sz',sz)};setSz(sz);
 $('#plus').onclick=()=>setSz(sz+4);$('#minus').onclick=()=>setSz(sz-4);
@@ -173,7 +284,7 @@ const PN=[['Fajr','ফজর'],['Dhuhr','যোহর'],['Asr','আসর'],['Ma
 function ptr(){$('#ptr').innerHTML=PN.map(p=>`<label class="mem"><input type="checkbox" data-p="${p[0]}" ${(pt[day]||{})[p[0]]?'checked':''}> ${p[1]} আদায় করেছি</label>`).join('')}
 function dash(){const m=S2.filter(s=>mem[s.id]).length,p=Object.values(pt[day]||{}).filter(Boolean).length;
 $('#prog').innerHTML=`মুখস্থ সূরা: ${bn(m)} / ${bn(S2.length)}<progress max="${S2.length}" value="${m}"></progress>আজকের নামাজ: ${bn(p)} / ৫<progress max="5" value="${p}"></progress>`;
-$('#last').innerHTML=lr?`শেষ পড়া: <button class="tools" style="padding:2px 10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px" data-go="${lr.k}">${lr.n}</button>`:''}
+$('#last').innerHTML=lr?`শেষ পড়া: <button data-go="${lr.k}">${lr.n}</button>`:''}
 // ---- নামাজের সময়, হিজরি তারিখ ----
 let T=null;
 const HM=['মুহাররম','সফর','রবিউল আউয়াল','রবিউস সানি','জমাদিউল আউয়াল','জমাদিউস সানি','রজব','শা\u2019বান','রমজান','শাওয়াল','জিলকদ','জিলহজ'];
@@ -184,7 +295,10 @@ function hijri(){try{const n=new Date();let d,m,y,src='';
  else{const p=hjp(Date.now());d=p.day;m=p.month;y=p.year}
  $('#hijri').innerHTML=new Intl.DateTimeFormat('bn-BD',{weekday:'long'}).format(n)+', '+bn(d)+' '+HM[m-1]+' '+bn(y)+' হিজরি<br><small>'+new Intl.DateTimeFormat('bn-BD',{day:'numeric',month:'long',year:'numeric'}).format(n)+src+'</small>'}catch(e){}}hijri();
 async function times(){T=L('t_'+day,null);if(!T||!HD){try{const r=await fetch(`https://api.aladhan.com/v1/timings?latitude=${pos.la}&longitude=${pos.lo}&method=1&school=1`),j=(await r.json()).data;T=j.timings;HD=j.date.hijri;W('t_'+day,T);W('hd_'+day,HD)}catch(e){if(!T)$('#next').textContent='সময় আনা যায়নি (ইন্টারনেট দেখুন)'}}
-if(T)$('#ttab').innerHTML=PN.map(p=>{let[h,m]=T[p[0]].split(':');h=+h;return`<tr><td>${p[1]}</td><td>${bn((h%12)||12)}:${bn(m)} ${h<12?'পূর্বাহ্ণ':'অপরাহ্ণ'}</td></tr>`}).join('');hijri();tick()}
+if(T){const fmt=p=>{let[h,m]=T[p[0]].split(':');h=+h;return`${bn((h%12)||12)}:${bn(m)} ${h<12?'পূর্বাহ্ণ':'অপরাহ্ণ'}`};
+ $('#ttab').innerHTML=PN.map(p=>`<tr><td>${p[1]}</td><td>${fmt(p)}</td></tr>`).join('');
+ $('#times5').innerHTML=PN.map(p=>{let[h,m]=T[p[0]].split(':');h=+h;return`<div><b>${p[1]}</b>${bn((h%12)||12)}:${bn(m)}</div>`}).join('')}
+hijri();tick()}
 function tick(){if(!T)return;const n=new Date();let x=null;for(const[k,b]of PN){const[h,m]=T[k].split(':'),d=new Date(n);d.setHours(h,m,0,0);if(d>n){x=[b,d];break}}
 if(!x){const[h,m]=T.Fajr.split(':'),d=new Date(n);d.setDate(d.getDate()+1);d.setHours(h,m,0,0);x=['ফজর',d]}
 const s=Math.floor((x[1]-n)/1e3);$('#next').textContent=`${x[0]} শুরু হতে ${bn(Math.floor(s/3600))} ঘণ্টা ${bn(Math.floor(s%3600/60))} মিনিট ${bn(s%60)} সেকেন্ড`}
@@ -223,5 +337,7 @@ if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWor
 <script src="hadith.js"></script>
 <script src="quiz.js"></script>
 <script src="quran.js"></script>
+<script src="theme.js"></script>
+<script src="home.js"></script>
 </body>
 </html>
